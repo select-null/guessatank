@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Угадай танк!</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.js"></script>
+	<script src="http://underscorejs.org/underscore.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/wotService.js"></script>
+	<script src="app/controllers/yesNoCtrl.js"></script>
+	<script src="app/controllers/1From4Ctrl.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="simple-sidebar.css">
+	<!-- Put this script tag to the <head> of your page -->
+	<script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
+	<script type="text/javascript">
+		VK.init({apiId: 4826170, onlyWidgets: true});
+	</script>
+</head>
+<body ng-app="application" analytics>
+	<div id="wrapper">
+		<div ng-include="'partial/_leftsidebar.html'" include-replace></div>
+		<div id="page-content-wrapper">
+			<h1 class="text-center">Угадай танк!</h1>
+			<div ng-view></div>
+		</div>
+	</div>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-60480050-2', 'auto');
+		//ga('send', 'pageview');
+	</script>
+</body>
+</html>
