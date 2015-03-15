@@ -31,6 +31,7 @@ application.directive('analytics', ['$rootScope', '$location', function ($rootSc
 	return {
 		link: function (scope, elem, attrs, ctrl) {
 			$rootScope.$on('$routeChangeSuccess', function(event, currRoute, prevRoute) {
+				if (currRoute.redirectTo) return;
 				ga('set', 'page', $location.path());
 				ga('send', 'pageview');
 			});
