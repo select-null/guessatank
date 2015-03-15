@@ -33,6 +33,13 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wotService', functi
 	};
 
 	$scope.newGame = function(){
+		ga('send', {
+			'hitType': 'event',
+			'eventCategory': 'button',
+			'eventAction': 'click',
+			'eventLabel': 'new game "1from4"'
+			}
+		);
 		generateTest();
 		$scope.gameOver = false;
 		$scope.currentQuestionNo = 0;

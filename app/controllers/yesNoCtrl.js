@@ -53,6 +53,13 @@ application.controller('yesNoCtrl', ['$scope', '$http', 'wotService', function($
 	};
 
 	$scope.newGame = function(){
+		ga('send', {
+			'hitType': 'event',
+			'eventCategory': 'button',
+			'eventAction': 'click',
+			'eventLabel': 'new game "yes/no"'
+			}
+		);
 		generateTest();
 		$scope.question = $scope.questions[0];
 		$scope.gameOver = false;
