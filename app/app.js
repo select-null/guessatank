@@ -17,16 +17,6 @@ application.config(['$routeProvider',function($routeProvider){
 		});
 }]);
 
-application.directive('includeReplace', function(){
-	return {
-		require: 'ngInclude',
-		restrict: 'A', /* optional */
-		link: function (scope, el, attrs) {
-			el.replaceWith(el.children());
-		}
-	};
-});
-
 application.directive('analytics', ['$rootScope', '$location', function ($rootScope, $location) {
 	return {
 		link: function (scope, elem, attrs, ctrl) {
