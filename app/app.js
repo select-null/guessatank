@@ -22,6 +22,8 @@ application.directive('includeReplace', function(){
 		require: 'ngInclude',
 		restrict: 'A', /* optional */
 		link: function (scope, el, attrs) {
+			var _scope = el.children().scope();
+			_scope = scope.$parent;
 			el.replaceWith(el.children());
 		}
 	};
