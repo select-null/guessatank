@@ -13,7 +13,7 @@ application.config(['$routeProvider',function($routeProvider){
 			controller: '1From4Ctrl'
 		}).
 		otherwise({
-			redirectTo: '/yesno'
+			redirectTo: '/1from4'
 		});
 }]);
 

@@ -8,8 +8,6 @@ application.service('wotService', ['$http', '$q', function($http, $q){
 
 	var tanks = {};
 
-	getTanks();
-
 	function getTanks(){
 		var result = $q.defer();
 		if (!tanks.data){
