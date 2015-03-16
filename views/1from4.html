@@ -1,35 +1,28 @@
-<div class="container-fluid">
-	<div class="question" ng-repeat="question in test.questions" ng-show="question.no == currentQuestionNo && !gameOver">
-		<div class="row" style="margin-bottom: 30px;">
-			<div class="col-xs-12 text-center">
-				<h1>{{question.tanks[question.rightTankIndex].name_i18n}} <small>({{currentQuestionNo+1}}/{{test.questions.length}})</small></h1>
-			</div>
-		</div>
-		<div class="row row-centered">
-			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-centered">
-				<div class="row">
-					<div class="card grow text-center pull-left">
-						<img ng-click="setAnswer(0)" ng-src="{{question.tanks[0].image}}" class="tank-img">
-					</div>
-					<div class="card grow pull-right">
-						<img ng-click="setAnswer(1)" ng-src="{{question.tanks[1].image}}" class="tank-img">
-					</div>
-				</div>
-				<div class="row">
-					<div class="card grow pull-left">
-						<img ng-click="setAnswer(2)" ng-src="{{question.tanks[2].image}}" class="tank-img">
-					</div>
-					<div class="card grow pull-right">
-						<img ng-click="setAnswer(3)" ng-src="{{question.tanks[3].image}}" class="tank-img">
-					</div>
-				</div>
-			</div>
+<div class="question" ng-repeat="question in test.questions" ng-show="question.no == currentQuestionNo && !gameOver">
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<h1>{{question.tanks[question.rightTankIndex].name_i18n}} <small>({{currentQuestionNo+1}}/{{test.questions.length}})</small></h1>
 		</div>
 	</div>
-	<div class="test-result row row-centered" ng-show="gameOver">
-		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-centered">
-			<div class="btn btn-success center-block" ng-click="newGame()">Еще раз!</div>
-			<h1 class="text-center">Ваш результат {{test.result}} из {{test.questions.length}}</h1>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+			<div class="row">
+				<div class="card grow col-xs-6">
+					<img ng-click="setAnswer(0)" ng-src="{{question.tanks[0].image}}" class="tank-img center-block">
+				</div>
+				<div class="card grow col-xs-6">
+					<img ng-click="setAnswer(1)" ng-src="{{question.tanks[1].image}}" class="tank-img center-block">
+				</div>
+			</div>
+			<div class="row">
+				<div class="card grow col-xs-6">
+					<img ng-click="setAnswer(2)" ng-src="{{question.tanks[2].image}}" class="tank-img center-block">
+				</div>
+				<div class="card grow col-xs-6">
+					<img ng-click="setAnswer(3)" ng-src="{{question.tanks[3].image}}" class="tank-img center-block">
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+<div ng-include="'views/1from4_result.html'"></div>

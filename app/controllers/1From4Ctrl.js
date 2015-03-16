@@ -1,6 +1,6 @@
 'use strict';
 
-application.controller('1From4Ctrl', ['$scope', '$timeout', 'wotService', function($scope, $timeout, wot){
+application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', function($scope, $timeout, wgService){
 
 	var QUESTIONS_IN_TEST = 15;
 	var TANKS_IN_QUESTION = 4;
@@ -24,10 +24,10 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wotService', functi
 				tanks: []
 			};
 			for(var j = 0; j < TANKS_IN_QUESTION; j++){
-				var randomTank = wot.getRandomTank();
+				var randomTank = wgService.getRandomMachine();
 				question.tanks.push(randomTank);
 			}
-			question.rightTankIndex = wot.getRandomInt(0, 3);
+			question.rightTankIndex = wgService.getRandomInt(0, 3);
 			$scope.test.questions.push(question);
 		}
 	};
@@ -45,7 +45,7 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wotService', functi
 		$scope.currentQuestionNo = 0;
 	};
 
-	wot.getTanks().
+	wgService.getMachines().
 		then(function(data){
 			generateTest();
 		});
