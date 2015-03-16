@@ -12,14 +12,6 @@
 				<div id="noBtn" ng-click="answerButtonClick(false)" class="btn btn-lg btn-danger">Нет</div>					
 			</div>
 		</div>
-		<div ng-if="gameOver">
-			<div class="btn btn-success center-block" ng-click="newGame()">Еще раз!</div>	
-			<h1 class="text-center">Ваш результат {{questions.result}} из {{questions.length}}</h1>
-			<ul class="center-block fa-ul">
-				<li ng-repeat="question in questions" class="fa" ng-class="{'fa-check': question.result, 'fa-close': !question.result}">
-					<image ng-src="{{question.tank.image}}">Это "{{question.tank.name_i18n}}"<span ng-if="question.publicTankName != question.tank.name_i18n"> (а не "{{question.publicTankName}}")</span> и вы ответили {{question.result ? "правильно" : "неправильно"}}
-				</li>
-			</ul>
-		</div>
+		<div ng-include="'views/yesno_result.html'"></div>
 	</div>
 </div>

@@ -1,6 +1,6 @@
 'use strict';
 
-application.controller('yesNoCtrl', ['$scope', '$http', 'wotService', function($scope, $http, wot){
+application.controller('yesNoCtrl', ['$scope', '$http', 'wgService', function($scope, $http, wgService){
 
 	var QUESTIONS_IN_TEST = 15;
 
@@ -12,7 +12,7 @@ application.controller('yesNoCtrl', ['$scope', '$http', 'wotService', function($
 
 	$scope.gameOver = false;
 
-	wot.getTanks().
+	wgService.getMachines().
 		then(function(data){
 			generateTest();
 			$scope.question = $scope.questions[0];
@@ -21,9 +21,9 @@ application.controller('yesNoCtrl', ['$scope', '$http', 'wotService', function($
 	var generateTest = function(){
 		$scope.questions = [];
 		for(var i = 0; i < QUESTIONS_IN_TEST; i++){
-			var tank = wot.getRandomTank();
-			var randomTankName = wot.getRandomTank().name_i18n;
-			var luck = wot.getRandomInt(0, 1);
+			var tank = wgService.getRandomMachine();
+			var randomTankName = wgService.getRandomMachine().name_i18n;
+			var luck = wgService.getRandomInt(0, 1);
 			var publicTankName = luck === 1 ? tank.name_i18n : randomTankName;
 			var question = {
 				no: i,

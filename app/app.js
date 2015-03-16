@@ -4,16 +4,28 @@ var application = angular.module('application', ['ngRoute']);
 
 application.config(['$routeProvider',function($routeProvider){
 	$routeProvider.
-		when('/yesno', {
+		when('/wot/yesno', {
 			templateUrl: 'views/yesno.html',
-			controller: 'yesNoCtrl'
+			controller: 'yesNoCtrl',
+			resolve: {wgService: 'wgWotService'}
 		}).
-		when('/1from4', {
+		when('/wot/1from4', {
 			templateUrl: 'views/1from4.html',
-			controller: '1From4Ctrl'
+			controller: '1From4Ctrl',
+			resolve: {wgService: 'wgWotService'}
+		}).
+		when('/wow/1from4', {
+			templateUrl: 'views/1from4.html',
+			controller: '1From4Ctrl',
+			resolve: {wgService: 'wgWowService'}
+		}).
+		when('/wow/yesno', {
+			templateUrl: 'views/yesno.html',
+			controller: 'yesNoCtrl',
+			resolve: {wgService: 'wgWowService'}
 		}).
 		otherwise({
-			redirectTo: '/1from4'
+			redirectTo: '/wot/1from4'
 		});
 }]);
 
