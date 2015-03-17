@@ -3,9 +3,9 @@
 application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', function($scope, $timeout, wgService){
 
 	var QUESTIONS_IN_TEST = 15;
-	var TANKS_IN_QUESTION = 4;
+	var ITEMS_IN_QUESTION = 4;
 
-	var tanks;
+	var machines;
 	var tanksAmount = 0;
 
 	$scope.test = {
@@ -21,13 +21,13 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', functio
 		for(var i = 0; i < QUESTIONS_IN_TEST; i++){
 			var question = {
 				no: i,
-				tanks: []
+				machines: []
 			};
-			for(var j = 0; j < TANKS_IN_QUESTION; j++){
-				var randomTank = wgService.getRandomMachine();
-				question.tanks.push(randomTank);
+			for(var j = 0; j < ITEMS_IN_QUESTION; j++){
+				var randomMachine = wgService.getRandomMachine();
+				question.machines.push(randomMachine);
 			}
-			question.rightTankIndex = wgService.getRandomInt(0, 3);
+			question.rightAnswerIndex = wgService.getRandomInt(0, 3);
 			$scope.test.questions.push(question);
 		}
 	};
@@ -53,7 +53,7 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', functio
 	$scope.setAnswer = function(index){
 		var question = $scope.test.questions[$scope.currentQuestionNo];
 		question.answer = index;
-		question.isRightAnswer = question.answer === question.rightTankIndex;
+		question.isRightAnswer = question.answer === question.rightAnswerIndex;
 		if (question.isRightAnswer){
 			$scope.test.result++;
 		}
