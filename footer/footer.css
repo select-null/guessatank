@@ -1,0 +1,27 @@
+body {
+  margin-bottom: 95px;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 95px;
+  background-color: #000000;
+}
+
+.logo-support {
+  background: url(//ru.wargaming.net/support/__swift/themes/client_default/css/scss/blocks/header/img/logo.png) no-repeat 0 0;
+  height: 90px;
+  width: 250px;
+  padding: 46px 0 0 76px;
+  color: red;
+}
+
+.logo-main {
+  background: url(//ru.wargaming.net/developers/static/1.17.1/img/footer_wg_logo.png) no-repeat 0 0;
+  height: 90px;
+  width: 170px;
+}
