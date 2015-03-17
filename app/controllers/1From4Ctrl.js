@@ -5,9 +5,6 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', functio
 	var QUESTIONS_IN_TEST = 15;
 	var ITEMS_IN_QUESTION = 4;
 
-	var machines;
-	var tanksAmount = 0;
-
 	$scope.test = {
 		questions: [],
 		result: 0
@@ -15,7 +12,12 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', functio
 	$scope.currentQuestionNo = 0;
 	$scope.gameOver = false;
 
-	function generateTest(){
+	var getRandomInt = function(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	};
+
+	function generateTest(machines){
+		
 		$scope.test.questions = [];
 		$scope.test.result = 0;
 		for(var i = 0; i < QUESTIONS_IN_TEST; i++){
@@ -24,7 +26,10 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', functio
 				machines: []
 			};
 			for(var j = 0; j < ITEMS_IN_QUESTION; j++){
-				var randomMachine = wgService.getRandomMachine();
+				var randomInt = getRandomInt(0, machines.length - 1);
+				var randomMachine = machines[randomInt];
+				//исключаем выбранный элемент
+				machines.splice(randomInt, 1);
 				question.machines.push(randomMachine);
 			}
 			question.rightAnswerIndex = wgService.getRandomInt(0, 3);
@@ -33,21 +38,24 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', functio
 	};
 
 	$scope.newGame = function(){
-		ga('send', {
-			'hitType': 'event',
-			'eventCategory': 'button',
-			'eventAction': 'click',
-			'eventLabel': 'new game "1from4"'
-			}
-		);
-		generateTest();
-		$scope.gameOver = false;
-		$scope.currentQuestionNo = 0;
+		wgService.getMachines()
+			.then(function(data){
+				ga('send', {
+					'hitType': 'event',
+					'eventCategory': 'button',
+					'eventAction': 'click',
+					'eventLabel': 'new game "1from4"'
+					}
+				);
+				generateTest(data.data);
+				$scope.gameOver = false;
+				$scope.currentQuestionNo = 0;
+			});
 	};
 
 	wgService.getMachines().
 		then(function(data){
-			generateTest();
+			generateTest(data.data);
 		});
 
 	$scope.setAnswer = function(index){
@@ -60,7 +68,7 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', functio
 		if($scope.currentQuestionNo < QUESTIONS_IN_TEST - 1){
 			$timeout(function(){
 				$scope.currentQuestionNo++;
-			}, 300);
+			}, 200);
 		}
 		else {
 			gameOver();

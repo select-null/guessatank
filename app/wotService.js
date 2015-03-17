@@ -8,6 +8,10 @@ application.service('wgWotService', ['$http', '$q', function($http, $q){
 
 	var tanks = {};
 
+	var deepCopy = function(data){
+		return (JSON.parse(JSON.stringify(data)));
+	};
+
 	function getTanks(){
 		var result = $q.defer();
 		if (!tanks.data){
@@ -22,11 +26,12 @@ application.service('wgWotService', ['$http', '$q', function($http, $q){
 			success(function(data){
 				tanks.data = _.values(data.data);
 				tanks.count = data.count;
-				result.resolve(tanks);
+
+				result.resolve(deepCopy(tanks));
 			});
 		}
 		else{
-			result.resolve(tanks);
+			result.resolve(deepCopy(tanks));
 		}
 		return result.promise;
 	};
