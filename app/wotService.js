@@ -1,16 +1,23 @@
 'use strict';
 
-application.service('wgWotService', ['$http', '$q', function($http, $q){
+application.service('helperService', [function(){
 
 	var getRandomInt = function(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
 
-	var tanks = {};
-
 	var deepCopy = function(data){
 		return (JSON.parse(JSON.stringify(data)));
 	};
+
+	this.getRandomInt = getRandomInt;
+	this.deepCopy = deepCopy;
+	
+}]);
+
+application.service('wgWotService', ['$http', '$q', 'helperService', function($http, $q, hs){
+
+	var tanks = {};
 
 	function getTanks(){
 		var result = $q.defer();
@@ -27,32 +34,27 @@ application.service('wgWotService', ['$http', '$q', function($http, $q){
 				tanks.data = _.values(data.data);
 				tanks.count = data.count;
 
-				result.resolve(deepCopy(tanks));
+				result.resolve(hs.deepCopy(tanks));
 			});
 		}
 		else{
-			result.resolve(deepCopy(tanks));
+			result.resolve(hs.deepCopy(tanks));
 		}
 		return result.promise;
 	};
 
 	var getRandomTank = function(){
 		//ToDo: fix не использовать до первого вызова getTanks
-		var tank = tanks.data[getRandomInt(0, tanks.count - 1)];
+		var tank = tanks.data[hs.getRandomInt(0, tanks.count - 1)];
 		return tank;
 	};
 
-	this.getRandomInt = getRandomInt;
 	this.getMachines = getTanks;
 	this.getRandomMachine = getRandomTank;
 	
 }]);
 
-application.service('wgWowService', ['$http', '$q', function($http, $q){
-
-	var getRandomInt = function(min, max) {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	};
+application.service('wgWowService', ['$http', '$q', 'helperService', function($http, $q, hs){
 
 	var planes = {};
 
@@ -86,11 +88,10 @@ application.service('wgWowService', ['$http', '$q', function($http, $q){
 
 	var getRandomPlane = function(){
 		//ToDo: fix не использовать до первого вызова getPlanes
-		var plane = planes.data[getRandomInt(0, planes.count - 1)];
+		var plane = planes.data[hs.getRandomInt(0, planes.count - 1)];
 		return plane;
 	};
 
-	this.getRandomInt = getRandomInt;
 	this.getMachines = getPlanes;
 	this.getRandomMachine = getRandomPlane;
 	

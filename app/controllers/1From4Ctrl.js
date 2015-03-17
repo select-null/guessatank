@@ -1,6 +1,6 @@
 'use strict';
 
-application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', function($scope, $timeout, wgService){
+application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', 'helperService', function($scope, $timeout, wgService, hs){
 
 	var QUESTIONS_IN_TEST = 15;
 	var ITEMS_IN_QUESTION = 4;
@@ -12,10 +12,6 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', functio
 	$scope.currentQuestionNo = 0;
 	$scope.gameOver = false;
 
-	var getRandomInt = function(min, max) {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	};
-
 	function generateTest(machines){
 		
 		$scope.test.questions = [];
@@ -26,13 +22,13 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', functio
 				machines: []
 			};
 			for(var j = 0; j < ITEMS_IN_QUESTION; j++){
-				var randomInt = getRandomInt(0, machines.length - 1);
+				var randomInt = hs.getRandomInt(0, machines.length - 1);
 				var randomMachine = machines[randomInt];
 				//исключаем выбранный элемент
 				machines.splice(randomInt, 1);
 				question.machines.push(randomMachine);
 			}
-			question.rightAnswerIndex = wgService.getRandomInt(0, 3);
+			question.rightAnswerIndex = hs.getRandomInt(0, 3);
 			$scope.test.questions.push(question);
 		}
 	};
