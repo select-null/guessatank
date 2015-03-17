@@ -12,7 +12,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="simple-sidebar.css">
+	<link rel="stylesheet" href="sidebar/leftsidebar.css">
+	<link rel="stylesheet" href="footer/footer.css">
 	<!-- Put this script tag to the <head> of your page -->
 	<script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
 	<script type="text/javascript">
@@ -21,12 +22,13 @@
 </head>
 <body ng-app="application" analytics>
 	<div id="wrapper">
-		<div ng-include="'partial/leftsidebar.html'"></div>
+		<div id="sidebar-wrapper" ng-include="'sidebar/leftsidebar.html'"></div>
 		<div id="page-content-wrapper">
 			<h1 class="text-center">Угадай технику!</h1>
 			<div ng-view class="container-fluid"></div>
 		</div>
 	</div>
+	<footer class="footer" ng-include="'footer/footer.html'"></footer>
 	<script>
 		var trackingDisabled = document.location.hostname === 'guessatank';
 		window['ga-disable-UA-60480050-2'] = trackingDisabled;
@@ -35,7 +37,6 @@
 			 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 		ga('create', 'UA-60480050-2', 'auto');
-		//ga('send', 'pageview');
 	</script>
 </body>
 </html>
