@@ -12,13 +12,11 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', 'helper
 	$scope.currentQuestionNo = 0;
 	$scope.gameOver = false;
 
-	function generateTest(machines){
-		
-		$scope.test.questions = [];
-		$scope.test.result = 0;
-		for(var i = 0; i < QUESTIONS_IN_TEST; i++){
+	function generateNewTest(machines){
+
+		function createNewQuestion(machines){
 			var question = {
-				no: i,
+				no: 0,
 				machines: []
 			};
 			for(var j = 0; j < ITEMS_IN_QUESTION; j++){
@@ -29,8 +27,28 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', 'helper
 				question.machines.push(randomMachine);
 			}
 			question.rightAnswerIndex = hs.getRandomInt(0, 3);
-			$scope.test.questions.push(question);
+			return question;
 		}
+
+		var test = {
+			questions: [],
+			result: 0
+		};
+		machines = _.groupBy(machines, function(machine){
+				return machine.nation;
+			});
+		machines = _.toArray(machines);
+		for(var i = 0; i < QUESTIONS_IN_TEST; i++){
+			var nationIndex = hs.getRandomInt(0, _.size(machines) - 1);
+			var question = createNewQuestion(machines[nationIndex]);
+			question.no = i;
+			test.questions.push(question);
+			console.log(machines[nationIndex].length);
+			if (machines[nationIndex].length < 4){
+				machines.splice(nationIndex, 1);
+			}
+		}
+		return test;
 	};
 
 	$scope.newGame = function(){
@@ -43,7 +61,7 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', 'helper
 					'eventLabel': 'new game "1from4"'
 					}
 				);
-				generateTest(data.data);
+				$scope.test = generateNewTest(data.data);
 				$scope.gameOver = false;
 				$scope.currentQuestionNo = 0;
 			});
@@ -51,8 +69,19 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', 'helper
 
 	wgService.getMachines().
 		then(function(data){
-			generateTest(data.data);
+			$scope.test = generateNewTest(data.data);
 		});
+
+	function nextQuestion(){
+		if($scope.currentQuestionNo < QUESTIONS_IN_TEST - 1){
+			$timeout(function(){
+				$scope.currentQuestionNo++;
+			}, 200);
+		}
+		else {
+			gameOver();
+		};
+	};
 
 	$scope.setAnswer = function(index){
 		var question = $scope.test.questions[$scope.currentQuestionNo];
@@ -61,14 +90,7 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', 'helper
 		if (question.isRightAnswer){
 			$scope.test.result++;
 		}
-		if($scope.currentQuestionNo < QUESTIONS_IN_TEST - 1){
-			$timeout(function(){
-				$scope.currentQuestionNo++;
-			}, 200);
-		}
-		else {
-			gameOver();
-		}
+		nextQuestion();
 	};
 
 	function gameOver(){
