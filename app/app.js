@@ -1,3 +1,8 @@
+/*
+Тебя здесь быть не должно, товарищ.
+Но, раз ты здесь, можешь написать все, что ты об этом думаешь на selectnull@mail.ru
+*/
+
 'use strict'
 
 var application = angular.module('application', ['ngRoute']);
