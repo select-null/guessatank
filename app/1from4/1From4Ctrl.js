@@ -43,7 +43,6 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', 'helper
 			var question = createNewQuestion(machines[nationIndex]);
 			question.no = i;
 			test.questions.push(question);
-			console.log(machines[nationIndex].length);
 			if (machines[nationIndex].length < 4){
 				machines.splice(nationIndex, 1);
 			}
