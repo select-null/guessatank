@@ -1,25 +1,25 @@
 <div class="question" ng-repeat="question in test.questions" ng-show="question.no == currentQuestionNo && !gameOver">
 	<div class="row">
 		<div class="col-xs-12 text-center">
-			<h1>{{question.tanks[question.rightTankIndex].name_i18n}} <small>({{currentQuestionNo+1}}/{{test.questions.length}})</small></h1>
+			<h1>{{question.machines[question.rightAnswerIndex].name_i18n}} <small>({{currentQuestionNo+1}}/{{test.questions.length}})</small></h1>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 			<div class="row">
 				<div class="card grow col-xs-6">
-					<img ng-click="setAnswer(0)" ng-src="{{question.tanks[0].image}}" class="tank-img center-block">
+					<img ng-click="setAnswer(0)" ng-src="{{question.machines[0].image}}" class="tank-img center-block">
 				</div>
 				<div class="card grow col-xs-6">
-					<img ng-click="setAnswer(1)" ng-src="{{question.tanks[1].image}}" class="tank-img center-block">
+					<img ng-click="setAnswer(1)" ng-src="{{question.machines[1].image}}" class="tank-img center-block">
 				</div>
 			</div>
 			<div class="row">
 				<div class="card grow col-xs-6">
-					<img ng-click="setAnswer(2)" ng-src="{{question.tanks[2].image}}" class="tank-img center-block">
+					<img ng-click="setAnswer(2)" ng-src="{{question.machines[2].image}}" class="tank-img center-block">
 				</div>
 				<div class="card grow col-xs-6">
-					<img ng-click="setAnswer(3)" ng-src="{{question.tanks[3].image}}" class="tank-img center-block">
+					<img ng-click="setAnswer(3)" ng-src="{{question.machines[3].image}}" class="tank-img center-block">
 				</div>
 			</div>
 		</div>

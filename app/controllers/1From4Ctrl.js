@@ -1,12 +1,9 @@
 'use strict';
 
-application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', function($scope, $timeout, wgService){
+application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', 'helperService', function($scope, $timeout, wgService, hs){
 
 	var QUESTIONS_IN_TEST = 15;
-	var TANKS_IN_QUESTION = 4;
-
-	var tanks;
-	var tanksAmount = 0;
+	var ITEMS_IN_QUESTION = 4;
 
 	$scope.test = {
 		questions: [],
@@ -15,52 +12,59 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', functio
 	$scope.currentQuestionNo = 0;
 	$scope.gameOver = false;
 
-	function generateTest(){
+	function generateTest(machines){
+		
 		$scope.test.questions = [];
 		$scope.test.result = 0;
 		for(var i = 0; i < QUESTIONS_IN_TEST; i++){
 			var question = {
 				no: i,
-				tanks: []
+				machines: []
 			};
-			for(var j = 0; j < TANKS_IN_QUESTION; j++){
-				var randomTank = wgService.getRandomMachine();
-				question.tanks.push(randomTank);
+			for(var j = 0; j < ITEMS_IN_QUESTION; j++){
+				var randomInt = hs.getRandomInt(0, machines.length - 1);
+				var randomMachine = machines[randomInt];
+				//исключаем выбранный элемент
+				machines.splice(randomInt, 1);
+				question.machines.push(randomMachine);
 			}
-			question.rightTankIndex = wgService.getRandomInt(0, 3);
+			question.rightAnswerIndex = hs.getRandomInt(0, 3);
 			$scope.test.questions.push(question);
 		}
 	};
 
 	$scope.newGame = function(){
-		ga('send', {
-			'hitType': 'event',
-			'eventCategory': 'button',
-			'eventAction': 'click',
-			'eventLabel': 'new game "1from4"'
-			}
-		);
-		generateTest();
-		$scope.gameOver = false;
-		$scope.currentQuestionNo = 0;
+		wgService.getMachines()
+			.then(function(data){
+				ga('send', {
+					'hitType': 'event',
+					'eventCategory': 'button',
+					'eventAction': 'click',
+					'eventLabel': 'new game "1from4"'
+					}
+				);
+				generateTest(data.data);
+				$scope.gameOver = false;
+				$scope.currentQuestionNo = 0;
+			});
 	};
 
 	wgService.getMachines().
 		then(function(data){
-			generateTest();
+			generateTest(data.data);
 		});
 
 	$scope.setAnswer = function(index){
 		var question = $scope.test.questions[$scope.currentQuestionNo];
 		question.answer = index;
-		question.isRightAnswer = question.answer === question.rightTankIndex;
+		question.isRightAnswer = question.answer === question.rightAnswerIndex;
 		if (question.isRightAnswer){
 			$scope.test.result++;
 		}
 		if($scope.currentQuestionNo < QUESTIONS_IN_TEST - 1){
 			$timeout(function(){
 				$scope.currentQuestionNo++;
-			}, 300);
+			}, 200);
 		}
 		else {
 			gameOver();
