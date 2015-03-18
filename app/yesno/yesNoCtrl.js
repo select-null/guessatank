@@ -1,6 +1,6 @@
 'use strict';
 
-application.controller('yesNoCtrl', ['$scope', '$http', 'wgService', function($scope, $http, wgService){
+application.controller('yesNoCtrl', ['$scope', '$http', 'wgService', 'helperService', function($scope, $http, wgService, hs){
 
 	var QUESTIONS_IN_TEST = 15;
 
@@ -23,7 +23,7 @@ application.controller('yesNoCtrl', ['$scope', '$http', 'wgService', function($s
 		for(var i = 0; i < QUESTIONS_IN_TEST; i++){
 			var tank = wgService.getRandomMachine();
 			var randomTankName = wgService.getRandomMachine().name_i18n;
-			var luck = wgService.getRandomInt(0, 1);
+			var luck = hs.getRandomInt(0, 1);
 			var publicTankName = luck === 1 ? tank.name_i18n : randomTankName;
 			var question = {
 				no: i,
