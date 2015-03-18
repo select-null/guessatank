@@ -27,13 +27,12 @@ application.service('wgWotService', ['$http', '$q', 'helperService', function($h
 				url: 'http://api.worldoftanks.ru/wot/encyclopedia/tanks/',
 				params: {
 					application_id: 'c48ad6258dc3f09b5a2269a6afd184b2',
-					fields: 'image,name_i18n'
+					fields: 'image,name_i18n,nation'
 				}
 			}).
 			success(function(data){
-				tanks.data = _.values(data.data);
-				tanks.count = data.count;
-
+				data.data = _.values(data.data);
+				tanks = data;
 				result.resolve(hs.deepCopy(tanks));
 			});
 		}
@@ -66,17 +65,18 @@ application.service('wgWowService', ['$http', '$q', 'helperService', function($h
 				url: 'http://api.worldofwarplanes.ru/wowp/encyclopedia/planes/',
 				params: {
 					application_id: 'c48ad6258dc3f09b5a2269a6afd184b2',
-					fields: 'images.large,name_i18n'
+					fields: 'images.large,name_i18n,nation'
 				}
 			}).
 			success(function(data){
-				planes.data = _.values(data.data).map(function(obj){
+				data.data = _.values(data.data).map(function(obj){
 					return {
 						name_i18n: obj.name_i18n,
-						image: obj.images.large
+						image: obj.images.large,
+						nation: obj.nation
 					};
 				});
-				planes.count = data.count;
+				planes = data;
 				result.resolve(planes);
 			});
 		}
