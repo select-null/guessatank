@@ -66,3 +66,10 @@ li.fa-close:before {
 .answer-my {
 	background-color: orange;
 }
+
+.machine-name {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin-left: 10px;
+}
