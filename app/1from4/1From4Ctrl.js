@@ -84,8 +84,8 @@ application.controller('1From4Ctrl', ['$scope', '$timeout', 'wgService', 'helper
 
 	$scope.setAnswer = function(index){
 		var question = $scope.test.questions[$scope.currentQuestionNo];
-		question.answer = index;
-		question.isRightAnswer = question.answer === question.rightAnswerIndex;
+		question.answerIndex = index;
+		question.isRightAnswer = question.answerIndex === question.rightAnswerIndex;
 		if (question.isRightAnswer){
 			$scope.test.result++;
 		}

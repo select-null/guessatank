@@ -5,21 +5,10 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-			<div class="row">
-				<div class="card grow col-xs-6">
-					<img ng-click="setAnswer(0)" ng-src="{{question.machines[0].image}}" class="tank-img center-block">
-				</div>
-				<div class="card grow col-xs-6">
-					<img ng-click="setAnswer(1)" ng-src="{{question.machines[1].image}}" class="tank-img center-block">
-				</div>
-			</div>
-			<div class="row">
-				<div class="card grow col-xs-6">
-					<img ng-click="setAnswer(2)" ng-src="{{question.machines[2].image}}" class="tank-img center-block">
-				</div>
-				<div class="card grow col-xs-6">
-					<img ng-click="setAnswer(3)" ng-src="{{question.machines[3].image}}" class="tank-img center-block">
+		<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3">
+			<div class="row card-container">
+				<div class="card grow col-xs-6" ng-repeat="machine in question.machines">
+					<img ng-click="setAnswer($index)" ng-src="{{machine.image}}" class="center-block">
 				</div>
 			</div>
 		</div>

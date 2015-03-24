@@ -11,10 +11,6 @@ small {
 	color: #6e6149 !important;
 }
 
-.tank-img {
-	//transform: scale(1.4);
-}
-
 .row-centered {
     text-align:center;
 }
@@ -48,16 +44,42 @@ li.fa-close:before {
 }
 
 .grow:hover {
-	transform: scale(1.3);
+	transform: scale(1.1);
 }
 
 .card {
-	margin-top: 25px;
-	margin-bottom: 25px;
+	border: 5px solid;
+	border-color: transparent;
 }
 
 /*ToDo: нужно это поправить адекватно*/
 .card img {
-	height: 150px;
-	width: 240px;
+	width: 100%;
+	height: 100%;
+}
+
+.answer-right {
+	border: 5px solid;
+	border-color: #4cae4c;
+}
+
+.answer-my {
+	background-color: orange;
+}
+
+.machine-name {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-left: 10px;
+}
+
+.question {
+}
+
+.machines-container:after {
+	content: '';
+	padding-top: 20px;
+	border-bottom: 1px solid;
+	width: 100%;
 }
