@@ -69,7 +69,17 @@ li.fa-close:before {
 
 .machine-name {
 	position: absolute;
-	bottom: 0;
+	top: 0;
 	left: 0;
 	margin-left: 10px;
+}
+
+.question {
+}
+
+.machines-container:after {
+	content: '';
+	padding-top: 20px;
+	border-bottom: 1px solid;
+	width: 100%;
 }

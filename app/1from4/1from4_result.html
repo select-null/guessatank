@@ -6,15 +6,15 @@
 				<h1 class="text-center">Ваш результат {{test.result}} из {{test.questions.length}}</h1>
 			</div>
 		</div>
-		<div class="row" ng-repeat="question in test.questions">
-			<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+		<div class="row question" ng-repeat="question in test.questions">
+			<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 				<div class="row text-center">
-					<h3>{{question.machines[question.rightAnswerIndex].name_i18n}}</h3>
+					<h3>{{question.no + 1}}. {{question.machines[question.rightAnswerIndex].name_i18n}}</h3>
 				</div>
-				<div class="row">
+				<div class="machines-container row">
 					<div class="card col-xs-6" ng-class="{'answer-right': $index == question.rightAnswerIndex, 'answer-my': $index == question.answerIndex}" ng-repeat="machine in question.machines">
 						<img ng-src="{{machine.image}}">
-						<h4 class="machine-name">{{machine.name_i18n}}</h4>
+						<h5 class="machine-name">{{machine.name_i18n}}</h5>
 					</div>
 				</div>
 			</div>
